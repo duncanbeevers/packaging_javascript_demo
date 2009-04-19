@@ -1,0 +1,37 @@
+%h1 JavaScript Packaging
+.section
+  %h2 Total Response Time
+  %ul
+    %li
+      %a{ :href => '/speed/unpackaged' } Individual scripts
+      included by <tt>&lt;script src="&hellip;"&gt;</tt> tags
+      %br
+      %a{ :href => '/images/unpackaged.png' }
+        %img{ :src => '/images/unpackaged.png', :width => '50%' }
+    %li
+      %a{ :href => '/speed/unpackaged' } Packaged script
+      %br
+      %a{ :href => '/images/packaged.png' }
+        %img{ :src => '/images/packaged.png', :width => '50%' }
+.section
+  %h2 Sprocketizing Your Own Code
+  %ul
+    %li
+      %a{ :href => '/sprocketize/demo/script_A.js' } Script A
+    %li
+      %a{ :href => '/sprocketize/demo/script_B.js' } Script B
+      which depends on script A
+    %li
+      %a{ :href => '/sprocketize/demo/script_C.js' } Script C
+      which depends on script A
+    %li
+      %a{ :href => '/sprocketize/demo/script_D.js' } Script D
+      which depends on scripts B and C
+.section
+  %h2 Sprocketizing 3rd-Party Code
+  Dependencies-only JavaScript
+  %ul
+    %li
+      %a{ :href => '/vendor/manifest.js' } A Manifest file
+    %li
+      %a{ :href => '/sprocketize/manifest.js' } Sprocketized Output
