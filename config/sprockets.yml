@@ -1,0 +1,6 @@
+---
+  asset_root: public
+  load_path:
+    - vendor/**/*
+  source_files:
+    - vendor/manifest.js

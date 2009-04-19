@@ -14,7 +14,7 @@ class SprocketizingServer < Sinatra::Default
   
   def secretary source_files
     # load YAML options and symbolize keys
-    options = YAML.load_file(File.join(APP_ROOT, 'sprockets.yml')).
+    options = YAML.load_file(File.join(APP_ROOT, 'config/sprockets.yml')).
       inject({}) { |a, (k, v)| a[k.to_sym] = v; a }
     
     Sprockets::Secretary.new(

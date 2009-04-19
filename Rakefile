@@ -2,7 +2,7 @@ APP_ROOT = File.join(File.dirname(__FILE__))
 
 task :build do
   # load YAML options and symbolize keys
-  options = YAML.load_file(File.join(APP_ROOT, 'sprockets.yml')).
+  options = YAML.load_file(File.join(APP_ROOT, 'config/sprockets.yml')).
     inject({}) { |a, (k, v)| a[k.to_sym] = v; a }
   
   system('sprocketize',
