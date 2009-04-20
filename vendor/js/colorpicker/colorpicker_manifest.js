@@ -3,4 +3,3 @@
 //= require "ColorMethods.js"
 //= require "ColorValuePicker.js"
 //= require "Slider.js"
-//= provide "images"

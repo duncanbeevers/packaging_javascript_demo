@@ -1,37 +1,114 @@
 %h1 JavaScript Packaging
+
+
+
 .section
-  %h2 Total Response Time
-  %ul
-    %li
-      %a{ :href => '/speed/unpackaged' } Individual scripts
-      included by <tt>&lt;script src="&hellip;"&gt;</tt> tags
+  %h2 Decrease Download Blocking
+
+  .point
+    %a{ :href => '/images/unpackaged.png' }
+      %img.screenshot{ :src => '/images/unpackaged.png' }
+    %h3 Individual Scripts
+    %p
+      Load order is critical when dealing with multiple inter-dependent JavaScript libraries.
       %br
-      %a{ :href => '/images/unpackaged.png' }
-        %img{ :src => '/images/unpackaged.png', :width => '50%' }
-    %li
-      %a{ :href => '/speed/unpackaged' } Packaged script
       %br
-      %a{ :href => '/images/packaged.png' }
-        %img{ :src => '/images/packaged.png', :width => '50%' }
+      Using individual
+      %tt
+        :escaped
+          <script src="
+        &hellip;>
+      tags, load order is perfectly specified.  You always know the first library referenced will load fully before the next file executes.
+      Unfortunately, it also means the browser stops rendering the page and requesting other assets until
+      the first library has fully loaded.
+
+  .point
+    %a{ :href => '/images/packaged.png' }
+      %img.screenshot{ :src => '/images/packaged.png' }
+    %h3 Packaged Script
+    %p
+      Packaging scripts together into a single payload minimizes total HTTP round-trip time.
+      %ul
+        %li
+          %a{ :href => '/speed/unpackaged' } Load a page with 4 separate script tags
+        %li
+          %a{ :href => '/speed/unpackaged' } Load a page with a single packaged script
+
+
 .section
   %h2 Sprocketizing Your Own Code
-  %ul
-    %li
-      %a{ :href => '/sprocketize/demo/script_A.js' } Script A
-    %li
-      %a{ :href => '/sprocketize/demo/script_B.js' } Script B
-      which depends on script A
-    %li
-      %a{ :href => '/sprocketize/demo/script_C.js' } Script C
-      which depends on script A
-    %li
-      %a{ :href => '/sprocketize/demo/script_D.js' } Script D
-      which depends on scripts B and C
+
+  .point
+    %h3 Interpretation of Constants
+    %p
+      Sprockets looks for a file called
+      %tt
+        %a{ :href => '/vendor/js/constants.yml' } constants.yml
+      in a Secretary's load path.
+      Constants provided in this file are available for preprocessor interpretation.
+    
+    %ul
+      %li
+        %a{ :href => '/vendor/js/demo/script_A.js' } Script A
+        &mdash;
+        Template with interpolation references
+      %li
+        %a{ :href => '/sprocketize/demo/script_A.js' } Script A
+        &mdash;
+        Interpolated template
+
+  .point
+    %h3 Dependencies
+    %p
+      Dependencies specified by multiple files are included only once in the resulting concatenation.
+    %ul
+      %li
+        %a{ :href => '/vendor/js/demo/script_B.js' } Script B
+        &mdash;
+        Template with dependency on script A
+      %li
+        %a{ :href => '/sprocketize/demo/script_B.js' } Script B
+        &mdash;
+        Fulfilled dependency
+      %li
+        %a{ :href => '/vendor/js/demo/script_C.js' } Script C
+        &mdash;
+        Template with dependency on script A
+      %li
+        %a{ :href => '/sprocketize/demo/script_C.js' } Script C
+        &mdash;
+        Fulfilled dependency
+    %p
+      Script D depends on script B and script C, which share a dependency on script A,
+      but only one copy of script A is included in the result.
+    %ul
+      %li
+        %a.raw{ :href => '/vendor/js/demo/script_D.js' } Script D
+        &mdash;
+        Template with dependencies on scripts B and C
+      %li
+        %a{ :href => '/sprocketize/demo/script_D.js' } Script D
+        &mdash;
+        Fulfilled dependencies
+
+
+  .point
+
+  .point
+
+
 .section
   %h2 Sprocketizing 3rd-Party Code
-  Dependencies-only JavaScript
-  %ul
-    %li
-      %a{ :href => '/vendor/manifest.js' } A Manifest file
-    %li
-      %a{ :href => '/sprocketize/manifest.js' } Sprocketized Output
+  .point
+    %h3 Dependencies-only JavaScript
+    %p
+      You can (
+      %em
+        mostly
+      ) unobtrusively sprocketize a 3rd party library by specifying its dependencies
+      in a set of manifest files.
+    %ul
+      %li
+        %a{ :href => '/vendor/js/colorpicker/colorpicker_manifest.js' } Library-specific manifest
+      %li
+        %a{ :href => '/sprocketize/manifest.js' } Sprocketized output
