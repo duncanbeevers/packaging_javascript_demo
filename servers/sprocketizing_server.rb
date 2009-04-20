@@ -9,7 +9,7 @@ class SprocketizingServer < Sinatra::Default
   
   get '/sprocketize/*' do
     headers 'Content-Type' => 'application/x-javascript'
-    secretary(params[:splat].map { |f| File.join('vendor', f) }).concatenation.to_s
+    secretary(params[:splat].map { |f| File.join('vendor/js', f) }).concatenation.to_s
   end
   
   def secretary source_files
