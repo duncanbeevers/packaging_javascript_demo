@@ -10,10 +10,11 @@ task :build do
     inject({}) { |a, (k, v)| a[k.to_sym] = v; a }
   
   Tempfile.open('concatenation.js') do |f|
-    %x[ sprocketize \
-          -I #{options[:load_path].join} \
-          -a #{options[:asset_root]} #{options[:source_files]} \
-          > #{f.path} ]
+    # %x[ sprocketize \
+    #       -I #{options[:load_path].join} \
+    #       -a #{options[:asset_root]} #{options[:source_files]} \
+    #       > #{f.path} ]
+    f << Sprockets::Secretary.new(options).concatenation.to_s
     f.size
     
     jar = File.join(APP_ROOT, 'vendor/yuicompressor-2.4.2.jar')
