@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'sinatra'
+require 'haml'
 
 $:.push(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__))
 require 'sprocketizing_server'
 
+use Rack::Deflater
 use SprocketizingServer
 
 set :public, File.join(File.dirname(__FILE__), '../public')
